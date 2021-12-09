@@ -1,8 +1,10 @@
 <template>
 	<div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
-		<div class="flex-shrink-0">
-			<img class="h-48 w-full object-cover" :src="imageUrl" :alt="imageAlt" />
-		</div>
+		<router-link :to="postLink" class="block mt-2">
+			<div class="flex-shrink-0">
+				<img class="h-48 w-full object-cover" :src="imageUrl" :alt="imageAlt" />
+			</div>
+		</router-link>
 		<div class="flex-1 bg-white p-6 flex flex-col justify-between">
 			<div class="flex-1">
 				<!--
@@ -40,33 +42,35 @@
 </template>
 
 <script>
-	export default {
-		props: {
-			id: String,
-			title: String,
-			slug: String,
-			categoryId: String,
-			description: String,
-			datePosted: String,
-			imageUrl: String,
-			imageAlt: String,
-			readingTime: String,
-			author: String
+export default {
+	props: {
+		id: String,
+		title: String,
+		slug: String,
+		categoryId: String,
+		description: String,
+		datePosted: String,
+		imageUrl: String,
+		imageAlt: String,
+		readingTime: String,
+		author: String,
+	},
+	computed: {
+		dateReadable() {
+			const date = new Date(Date.parse(this.datePosted));
+			const dateTimeFormat = new Intl.DateTimeFormat("en", {
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+			});
+			return dateTimeFormat.format(date);
 		},
-		computed: {
-			dateReadable() {
-				const date = new Date(Date.parse(this.datePosted));
-				const dateTimeFormat = new Intl.DateTimeFormat('en', {
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric',
-				});
-				return dateTimeFormat.format(date);
-			},
-			postLink() {
-				const routePath = this.$route.path.endsWith('/') ? this.$route.path.slice(0, -1) : this.$route.path;
-				return routePath + "/" + this.slug;
-			}
-		}
-	}
+		postLink() {
+			const routePath = this.$route.path.endsWith("/")
+				? this.$route.path.slice(0, -1)
+				: this.$route.path;
+			return routePath + "/" + this.slug;
+		},
+	},
+};
 </script>

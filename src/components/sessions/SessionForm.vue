@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="submitForm">
     <div class="form-control mb-10" :class="{ invalid: !bodyData.isValid }">
-      <label for="" class="block text-sm font-medium text-gray-700">Body</label>
+      <label for="" class="block text-sm font-medium text-gray-700">Full details</label>
       <div class="mt-1">
         <editor
           id="body"
@@ -96,7 +96,7 @@
     </div>
     <div class="form-control mb-10" :class="{ invalid: !descriptionData.isValid }">
       <label for="description" class="block text-sm font-medium text-gray-700"
-        >Description</label
+        >Brief description</label
       >
       <div class="mt-1">
         <textarea
@@ -117,7 +117,7 @@
         ></textarea>
       </div>
       <p v-if="!descriptionData.isValid" class="error-prompt">
-        Description can't be blank.
+        Brief description can't be blank.
       </p>
     </div>
     <div class="form-control mb-10">
